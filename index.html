@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting to App...</title>
+</head>
+<body>
+<script>
+  // Read Cashfree query parameters
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get('order_status') || "FAILED";
+  const orderId = params.get('order_id') || "";
+
+  // Build deep link for Flutter app
+  const deepLink = 'bodyai://payment?status=${encodeURIComponent(status)}&order_id=${encodeURIComponent(orderId)}';
+
+  // Redirect to Flutter app
+  window.location.href = deepLink;
+
+  // Fallback link in case redirect fails
+  setTimeout(() => {
+    document.body.innerHTML = <p>If nothing happened, <a href="${deepLink}">Click here to open app</a></p>;
+  }, 500);
+</script>
+<p>Redirecting to app...</p>
+</body>
+</html>
